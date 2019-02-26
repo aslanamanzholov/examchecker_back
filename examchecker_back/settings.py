@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+from datetime import timedelta, datetime
+from django.conf import settings
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -37,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'examchecker_back.auth_',
 ]
 
 MIDDLEWARE = [
@@ -103,9 +108,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Almaty'
 
 USE_I18N = True
 
@@ -113,8 +118,34 @@ USE_L10N = True
 
 USE_TZ = True
 
+SITE_URL = 'http://localhost:8000'
+
+AUTH_USER_MODEL = 'auth_.MainUser'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# REST FRAMEWORK
+
+REST_FRAMEWORK = {
+        'DEFAULT_PERMISSION_CLASSES': (
+            'rest_framework.permissions.IsAuthenticated',
+        ),
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
+            'rest_framework.authentication.BasicAuthentication',
+        ),
+        'DEFAULT_PAGINATION_CLASS':
+            'rest_framework.pagination.LimitOffsetPagination',
+        'PAGE_SIZE': 5
+}
+
+JWT_AUTH = {
+        'JWT_EXPIRATION_DELTA': timedelta(days=100),
+        'JWT_ALLOW_REFRESH': True,
+        'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=100),
+}
