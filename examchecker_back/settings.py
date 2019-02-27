@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'examchecker_back.auth_',
+    'examchecker_back.users',
     'rest_framework.authtoken',
     'rest_auth',
     'django.contrib.sites',
@@ -126,7 +126,7 @@ USE_TZ = True
 
 SITE_URL = 'http://localhost:8000'
 
-AUTH_USER_MODEL = 'auth_.CustomUser'
+AUTH_USER_MODEL = 'users.CustomUser'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -142,5 +142,8 @@ STATIC_URL = '/static/'
 REST_FRAMEWORK = {
         'DEFAULT_PAGINATION_CLASS':
             'rest_framework.pagination.LimitOffsetPagination',
-        'PAGE_SIZE': 5
+        'PAGE_SIZE': 5,
+        'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+        )
 }
