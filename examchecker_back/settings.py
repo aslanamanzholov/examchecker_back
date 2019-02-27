@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
     'api',
+    'examchecker_back.core',
 ]
 
 MIDDLEWARE = [
