@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
-from datetime import timedelta, datetime
 from django.conf import settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -42,6 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'examchecker_back.auth_',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -120,8 +126,11 @@ USE_TZ = True
 
 SITE_URL = 'http://localhost:8000'
 
-AUTH_USER_MODEL = 'auth_.MainUser'
+AUTH_USER_MODEL = 'auth_.CustomUser'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SITE_ID = 1
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -131,21 +140,7 @@ STATIC_URL = '/static/'
 # REST FRAMEWORK
 
 REST_FRAMEWORK = {
-        'DEFAULT_PERMISSION_CLASSES': (
-            'rest_framework.permissions.IsAuthenticated',
-        ),
-        'DEFAULT_AUTHENTICATION_CLASSES': (
-            'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-            'rest_framework.authentication.SessionAuthentication',
-            'rest_framework.authentication.BasicAuthentication',
-        ),
         'DEFAULT_PAGINATION_CLASS':
             'rest_framework.pagination.LimitOffsetPagination',
         'PAGE_SIZE': 5
-}
-
-JWT_AUTH = {
-        'JWT_EXPIRATION_DELTA': timedelta(days=100),
-        'JWT_ALLOW_REFRESH': True,
-        'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=100),
 }

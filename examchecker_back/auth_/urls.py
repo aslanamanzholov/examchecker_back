@@ -1,10 +1,7 @@
-from django.conf.urls import url
-from rest_framework.routers import DefaultRouter
-from rest_framework_jwt.views import refresh_jwt_token
+from django.urls import include, path
 
-from .views import AuthViewSet, UserViewSet
+from . import views
 
-router = DefaultRouter()
-router.register(r'users', UserViewSet, base_name='user')
-urlpatterns = router.urls
-urlpatterns += [url(r'^api-token-refresh/', refresh_jwt_token),]
+urlpatterns = [
+    path('', views.UserListView.as_view()),
+]
