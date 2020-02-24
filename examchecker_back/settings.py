@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from os.path import join
 
 from django.conf import settings
 
@@ -27,7 +28,7 @@ SECRET_KEY = '150snf3-=m#(zp%aa34+uo1gpyqybinvovq^jeu+9ocn2v6-e='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -47,8 +48,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_auth.registration',
-    'api',
-    'examchecker_back.core',
+    'examchecker_back.core.question',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +62,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'examchecker_back.urls'
+STATIC_ROOT = os.path.normpath(join(os.path.dirname(BASE_DIR), "static"))
 
 TEMPLATES = [
     {
