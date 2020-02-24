@@ -1,9 +1,26 @@
-  web:
-    build: .
-    command: >
-      bash -c "python manage.py migrate
-      && python manage.py runserver 0.0.0.0:8000"
-    volumes:
-      - .:/code
-    ports:
-      - "8000:8000"
+version: '3'
+
+services:
+    web:
+      build: .
+      command: >
+              bash -c "python manage.py makemigrations &&
+                      python manage.py migrate &&
+                      gunicorn examchecker_back.wsgi -b 0.0.0.0:8000 --workers 3"
+      volumes:
+        - web-django:/usr/src/app
+        - web-static:/usr/src/app/static
+      ports:
+        - "8000:8000"
+    nginx:
+      restart: always
+      build: ./nginx/
+      ports:
+        - "80:80"
+      volumes:
+        - web-static:/www/static
+      links:
+        - web:web
+volumes:
+  web-django:
+  web-static:
