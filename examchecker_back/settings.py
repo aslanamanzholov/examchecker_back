@@ -62,7 +62,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'examchecker_back.urls'
-STATIC_ROOT = os.path.normpath(join(os.path.dirname(BASE_DIR), "static"))
 
 TEMPLATES = [
     {
@@ -138,6 +137,7 @@ SITE_ID = 1
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = join(BASE_DIR, 'static')
 
 # REST FRAMEWORK
 
